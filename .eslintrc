@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    "react"
+  ],
+  "env": {
+      "browser": true,
+      "node": true,
+      "es6": true
+  },
+  "rules": {
+      "no-unused-vars": "off",
+      "no-undef": 2,
+      "no-new": 0,
+      "camelcase": "off",
+      "valid-typeof": ["error", { "requireStringLiterals": false }]
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "parser": "babel-eslint",
+  "extends": [
+      "standard-with-typescript"
+  ]
+}

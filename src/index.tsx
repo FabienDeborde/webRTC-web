@@ -1,12 +1,18 @@
 import * as React from "react"
 import ReactDOM from "react-dom"
-import { App } from "./App"
+import { ChakraProvider } from "@chakra-ui/core"
+import "focus-visible/dist/focus-visible"
+
 import * as serviceWorker from "./serviceWorker"
 import reportWebVitals from "./reportWebVitals"
+import customTheme from './styles/theme'
+import Routes from './Routes'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ChakraProvider resetCSS theme={customTheme}>
+      <Routes />
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root"),
 )

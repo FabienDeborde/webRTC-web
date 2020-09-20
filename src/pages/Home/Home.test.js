@@ -1,7 +1,7 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
-import { render } from './test-utils'
-import { Home } from './Home'
+import { render } from '../../test-utils'
+import Home from './Home'
 
 test('renders home page', () => {
   render(<Home />)

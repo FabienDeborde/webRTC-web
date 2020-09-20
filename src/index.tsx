@@ -1,14 +1,23 @@
-import * as React from "react"
-import ReactDOM from "react-dom"
-import { App } from "./App"
-import * as serviceWorker from "./serviceWorker"
-import reportWebVitals from "./reportWebVitals"
+import * as React from 'react'
+import ReactDOM from 'react-dom'
+import { ThemeProvider, ColorModeProvider, CSSReset } from '@chakra-ui/core'
+import 'focus-visible/dist/focus-visible'
+
+import * as serviceWorker from './serviceWorker'
+import reportWebVitals from './reportWebVitals'
+import customTheme from './styles/theme'
+import Routes from './Routes'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={customTheme}>
+      <ColorModeProvider>
+        <CSSReset />
+        <Routes />
+      </ColorModeProvider>
+    </ThemeProvider>
   </React.StrictMode>,
-  document.getElementById("root"),
+  document.getElementById('root')
 )
 
 // If you want your app to work offline and load faster, you can change

@@ -9,12 +9,11 @@ type ColorModeSwitcherProps = Omit<IconButtonProps, 'aria-label'>
 
 export const ColorModeSwitcher = (props: ColorModeSwitcherProps) => {
   const { colorMode, toggleColorMode } = useColorMode()
-  console.log('colorMode', colorMode)
 
   return (
     <IconButton
-      size="md"
-      fontSize="lg"
+      size="sm"
+      fontSize="md"
       variant="ghost"
       color="current"
       onClick={toggleColorMode}

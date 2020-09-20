@@ -7,7 +7,7 @@ import {
 const Home = (props) => {
   return (
     <Center>
-      test
+      home
     </Center>
   )
 }

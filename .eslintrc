@@ -1,6 +1,20 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020, // Allows for the parsing of modern ECMAScript features
+    "sourceType": "module", // Allows for the use of imports
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": [
+      "standard",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended"
+  ],
   "plugins": [
-    "react"
+    "react",
+    "@typescript-eslint"
   ],
   "env": {
       "browser": true,
@@ -12,13 +26,13 @@
       "no-undef": 2,
       "no-new": 0,
       "camelcase": "off",
-      "valid-typeof": ["error", { "requireStringLiterals": false }]
+      "valid-typeof": ["error", { "requireStringLiterals": false }],
+      "no-use-before-define": [0],
+      "@typescript-eslint/no-use-before-define": [1]
   },
-  "parserOptions": {
-    "project": "./tsconfig.json"
+  "settings": {
+    "react": {
+      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+    }
   },
-  "parser": "babel-eslint",
-  "extends": [
-      "standard-with-typescript"
-  ]
 }

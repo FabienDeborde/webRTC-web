@@ -1,9 +1,7 @@
 import React from 'react'
 import { Router } from '@reach/router'
 import {
-  Box,
-  IconButton,
-  useColorMode
+  Box
 } from '@chakra-ui/core'
 
 import Home from './pages/Home'
@@ -11,22 +9,13 @@ import CreateRoom from './pages/CreateRoom'
 import JoinRoom from './pages/JoinRoom'
 import Room from './pages/Room'
 import NotFound from './pages/NotFound'
+import { ColorModeSwitcher } from './components/ColorModeSwitcher'
 
 const Routes = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <>
       <Box pos="fixed" top="2" right="2" zIndex="sticky">
-        <IconButton
-          onClick={toggleColorMode}
-          variant="ghost"
-          icon={colorMode === 'light'
-            ? 'moon'
-            : 'sun'
-          }
-          aria-label={`Toggle ${colorMode === 'light' ? 'dark' : 'light'} mode`}
-          size="md"
-        />
+        <ColorModeSwitcher />
       </Box>
       <Router>
         <Home path="/" />

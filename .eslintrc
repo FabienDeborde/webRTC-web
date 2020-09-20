@@ -35,4 +35,10 @@
       "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
     }
   },
+  "ignorePatterns": [
+    "node_modules",
+    "reportWebVitals.ts",
+    "test-utils.tsx",
+    "serviceWorker.ts"
+  ]
 }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
-import { ChakraProvider } from '@chakra-ui/core'
+import { ThemeProvider, ColorModeProvider, CSSReset } from '@chakra-ui/core'
 import 'focus-visible/dist/focus-visible'
 
 import * as serviceWorker from './serviceWorker'
@@ -10,9 +10,12 @@ import Routes from './Routes'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider resetCSS theme={customTheme}>
-      <Routes />
-    </ChakraProvider>
+    <ThemeProvider theme={customTheme}>
+      <ColorModeProvider>
+        <CSSReset />
+        <Routes />
+      </ColorModeProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

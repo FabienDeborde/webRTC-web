@@ -1,6 +1,7 @@
 import React from 'react'
 import { Router } from '@reach/router'
 import {
+  theme,
   Box
 } from '@chakra-ui/core'
 
@@ -11,10 +12,10 @@ import Room from './pages/Room'
 import NotFound from './pages/NotFound'
 import { ColorModeSwitcher } from './components/ColorModeSwitcher'
 
-const Routes = () => {
+const Routes: React.FunctionComponent = () => {
   return (
     <>
-      <Box pos="fixed" top="2" right="2" zIndex="sticky">
+      <Box pos="fixed" top="2" right="2" zIndex={theme.zIndices.sticky}>
         <ColorModeSwitcher />
       </Box>
       <Router>

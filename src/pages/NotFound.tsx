@@ -1,7 +1,8 @@
 import React, { memo } from 'react'
+import { RouteComponentProps } from '@reach/router'
 // import PropTypes from 'prop-types'
 
-const NotFound = (props) => {
+const NotFound: React.FC<RouteComponentProps> = () => {
   return <div>NotFound</div>
 }
 

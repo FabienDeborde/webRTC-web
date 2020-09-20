@@ -2,12 +2,11 @@ import React from 'react'
 import { Router } from '@reach/router'
 import {
   theme,
+  Flex,
   Box
 } from '@chakra-ui/core'
 
 import Home from './pages/Home'
-import CreateRoom from './pages/CreateRoom'
-import JoinRoom from './pages/JoinRoom'
 import Room from './pages/Room'
 import NotFound from './pages/NotFound'
 import { ColorModeSwitcher } from './components/ColorModeSwitcher'
@@ -15,16 +14,28 @@ import { ColorModeSwitcher } from './components/ColorModeSwitcher'
 const Routes: React.FunctionComponent = () => {
   return (
     <>
-      <Box pos="fixed" top="2" right="2" zIndex={theme.zIndices.sticky}>
+      <Flex
+        as="header"
+        pos="fixed"
+        top="0"
+        left="0"
+        right="0"
+        zIndex={theme.zIndices.sticky}
+        justify="space-between"
+        align="center"
+        p="2"
+        h="48px"
+      >
+        <span>WebRTC tryouts</span>
         <ColorModeSwitcher />
+      </Flex>
+      <Box as="main" pt="48px" h="100vh">
+        <Router>
+          <Home path="/" />
+          <Room path="/room/:id" />
+          <NotFound default />
+        </Router>
       </Box>
-      <Router>
-        <Home path="/" />
-        <CreateRoom path="/create" />
-        <JoinRoom path="/join" />
-        <Room path="/room/:id" />
-        <NotFound default />
-      </Router>
     </>
   )
 }

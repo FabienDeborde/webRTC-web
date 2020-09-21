@@ -1,19 +1,22 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import { ThemeProvider, ColorModeProvider, CSSReset } from '@chakra-ui/core'
+import { Global } from '@emotion/core'
 import 'focus-visible/dist/focus-visible'
 
 import * as serviceWorker from './serviceWorker'
 import reportWebVitals from './reportWebVitals'
 import customTheme from './styles/theme'
-import Routes from './Routes'
+import Router from './Router'
+import GlobalStyles from './styles/GlobalStyles'
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={customTheme}>
       <ColorModeProvider>
         <CSSReset />
-        <Routes />
+        <Global styles={GlobalStyles} />
+        <Router />
       </ColorModeProvider>
     </ThemeProvider>
   </React.StrictMode>,

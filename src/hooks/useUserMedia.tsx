@@ -1,0 +1,31 @@
+import { useState, useEffect } from 'react'
+
+// eslint-disable-next-line no-undef
+export function useUserMedia (requestedMedia: MediaStreamConstraints): MediaStream|null {
+  const [mediaStream, setMediaStream] = useState<MediaStream | null>(null)
+
+  useEffect(() => {
+    async function enableStream () {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia(requestedMedia)
+          setMediaStream(stream)
+        } catch (error) {
+          console.warn(error)
+        }
+      }
+    }
+
+    if (!mediaStream) {
+      enableStream()
+    } else {
+      return function cleanup () {
+        mediaStream.getTracks().forEach(track => {
+          track.stop()
+        })
+      }
+    }
+  }, [mediaStream, requestedMedia])
+
+  return mediaStream
+}

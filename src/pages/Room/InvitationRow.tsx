@@ -66,7 +66,7 @@ const InvitationRow = () => {
         size="xs"
         variant="outline"
         variantColor="accent"
-        ml={2}
+        ml={4}
         leftIcon="email"
         fontWeight="normal"
       >

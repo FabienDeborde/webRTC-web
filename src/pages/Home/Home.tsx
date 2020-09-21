@@ -10,6 +10,7 @@ import {
 import HomeButton from './HomeButton'
 import HomeMain from './HomeMain'
 import { CreateIcon, JoinIcon } from '../../components/CustomIcons'
+import { HEADER_HEIGHT } from '../../constants'
 
 const Home: React.FC<RouteComponentProps> = () => {
   const [currentMode, setCurrentMode] = useState<'create' | 'join' | null>(null)
@@ -42,7 +43,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   }
 
   return (
-    <Flex align='center' justify={currentMode ? 'flex-start' : 'center'} h="calc(100vh - 48px)" direction="column">
+    <Flex align='center' justify={currentMode ? 'flex-start' : 'center'} h={`calc(100vh - ${HEADER_HEIGHT}px)`} direction="column">
       { _renderBackButton() }
       <Flex direction="column">
         <HomeButton

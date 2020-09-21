@@ -9,7 +9,8 @@ import {
 
 import InvitationRow from './InvitationRow'
 import VideosContainer from './VideosContainer'
-import UserVideo from './UserVideo'
+import UserVideoContainer from './UserVideoContainer'
+import { HEADER_HEIGHT } from '../../constants'
 
 type IRoom = {
   roomID?: string;
@@ -19,7 +20,7 @@ const Room: React.FC<IRoom> = ({ roomID }) => {
   const { colorMode } = useColorMode()
 
   return (
-    <Flex h="calc(100vh - 48px)" direction="column" overflow="hidden" p={4}>
+    <Flex h={`calc(100vh - ${HEADER_HEIGHT}px)`} direction="column" overflow="hidden" p={4}>
       <Flex
         as="h1"
         color={colorMode === 'light' ? 'primary.500' : 'primary.200'}
@@ -34,7 +35,7 @@ const Room: React.FC<IRoom> = ({ roomID }) => {
       </Flex>
       <InvitationRow />
       <VideosContainer />
-      <UserVideo />
+      <UserVideoContainer />
     </Flex>
   )
 }

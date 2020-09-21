@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Room from './pages/Room'
 import NotFound from './pages/NotFound'
 import { ColorModeSwitcher } from './components/ColorModeSwitcher'
+import { HEADER_HEIGHT } from './constants'
 
 const Routes: React.FunctionComponent = () => {
   return (
@@ -24,12 +25,12 @@ const Routes: React.FunctionComponent = () => {
         justify="space-between"
         align="center"
         p="2"
-        h="48px"
+        h={`${HEADER_HEIGHT}px`}
       >
         <span>WebRTC tryouts</span>
         <ColorModeSwitcher />
       </Flex>
-      <Box as="main" pt="48px" h="100vh">
+      <Box as="main" pt={`${HEADER_HEIGHT}px`} h="100vh">
         <Router>
           <Home path="/" />
           <Room path="/room/:roomID" />

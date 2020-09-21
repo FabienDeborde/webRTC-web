@@ -68,18 +68,15 @@ const UserVideoContainer: React.FC = () => {
         bottom={posY + 'px'}
         right={posX + 'px'}
         transform={`translate(${translateX}px, ${translateY}px)`}
-        w={[
-          '150px',
-          '200px'
-        ]}
+        // w={[
+        //   '150px',
+        //   '200px'
+        // ]}
         h={[
           '150px',
           '200px'
         ]}
         pos="fixed"
-        borderWidth="1px"
-        rounded="md"
-        bg="white"
         cursor={isDragging ? 'grabbing' : 'grab'}
         boxShadow={isDragging ? 'lg' : 'none'}
         zIndex={theme.zIndices.overlay}

@@ -32,7 +32,7 @@ const Routes: React.FunctionComponent = () => {
       <Box as="main" pt="48px" h="100vh">
         <Router>
           <Home path="/" />
-          <Room path="/room/:id" />
+          <Room path="/room/:roomID" />
           <NotFound default />
         </Router>
       </Box>

@@ -56,6 +56,9 @@ const UserVideoContainer: React.FC = () => {
     setTranslateX(0)
     setTranslateY(0)
     setIsDragging(false)
+
+    localStorage.setItem('userVideoX', String(8))
+    localStorage.setItem('userVideoY', String(8))
   }
 
   return (
@@ -85,7 +88,7 @@ const UserVideoContainer: React.FC = () => {
       </Box>
       <Button
         pos="fixed"
-        variant="outline"
+        // variant="outline"
         size="xs"
         variantColor="primary"
         onClick={_resetContainer}

@@ -39,7 +39,7 @@ const InvitationRow = () => {
   const { onCopy, hasCopied } = useClipboard(location && location.href)
 
   return (
-    <Flex mt={4} px={4} justify="flex-end" align="center">
+    <Flex mt={4} justify="flex-end" align="center">
       <Box pos="relative">
         <Button
           size="xs"

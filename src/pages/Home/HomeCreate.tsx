@@ -72,8 +72,8 @@ const HomeCreate = memo(function HomeCreate () {
             borderWidth="1px"
             size="24px"
             rounded="sm"
-            _checked={{ bg: 'brand.500', color: 'white', borderColor: 'brand.500' }}
-            _focus={{ borderColor: 'brand.600', boxShadow: 'none' }}
+            _checked={{ bg: 'primary.500', color: 'white', borderColor: 'primary.500' }}
+            _focus={{ borderColor: 'primary.600', boxShadow: 'none' }}
           >
             <Icon name="check" size="16px" />
           </ControlBox>
@@ -99,7 +99,7 @@ const HomeCreate = memo(function HomeCreate () {
       <Box>
         <Button
           mt={6}
-          variantColor="brand"
+          variantColor="primary"
           isLoading={formState.isSubmitting}
           type="submit"
           w="100%"

@@ -21,7 +21,7 @@ const HomeButton: React.FC<IHomeButton> = ({ currentMode, mode, Icon, handleClic
     <Button
       size="lg"
       variant="outline"
-      variantColor="brand"
+      variantColor="primary"
       leftIcon={Icon}
       onClick={handleClick}
       m={2}
@@ -34,7 +34,7 @@ const HomeButton: React.FC<IHomeButton> = ({ currentMode, mode, Icon, handleClic
   const TitleEl = React.forwardRef((props, ref) => (
     <Flex
       as="h1"
-      color={colorMode === 'light' ? 'brand.500' : 'brand.200'}
+      color={colorMode === 'light' ? 'primary.500' : 'primary.200'}
       fontSize="2xl"
       align="center"
       justify="center"

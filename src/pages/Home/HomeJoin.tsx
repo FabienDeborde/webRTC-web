@@ -54,7 +54,7 @@ const HomeJoin = memo(function HomeCreate () {
       <Box>
         <Button
           mt={6}
-          variantColor="brand"
+          variantColor="primary"
           isLoading={formState.isSubmitting}
           type="submit"
           w="100%"

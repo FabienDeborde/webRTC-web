@@ -25,7 +25,7 @@ export default {
     ...theme.colors,
     black: '#000a1e',
     white: '#e2efff',
-    brand: {
+    primary: {
       50: '#e2efff',
       100: '#b4d0ff',
       200: '#86b1f9',
@@ -36,6 +36,18 @@ export default {
       700: '#033279',
       800: '#001e4b',
       900: '#000a1e'
+    },
+    accent: {
+      50: '#ffe8de',
+      100: '#fdc8b4',
+      200: '#f7aa88',
+      300: '#f28f5a',
+      400: '#ec762c',
+      500: '#d36313',
+      600: '#a5420c',
+      700: '#762807',
+      800: '#481100',
+      900: '#1e0000'
     }
   },
   icons: {

@@ -2,6 +2,12 @@
   publish = "build/"
   command = "yarn build"
 
+[context.master.environment]
+  REACT_APP_MAIN_API_URL = "https://webrtc-server-x4rsj.ondigitalocean.app/"
+
+[context.develop.environment]
+  REACT_APP_MAIN_API_URL = "https://webrtc-server-x4rsj.ondigitalocean.app/"
+
 # The following redirect is intended for use with most SPAs that handle
 # routing internally.
 [[redirects]]

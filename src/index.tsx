@@ -1,5 +1,7 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+import { QueryCache, ReactQueryCacheProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query-devtools'
 import { ThemeProvider, ColorModeProvider, CSSReset } from '@chakra-ui/core'
 import { Global } from '@emotion/core'
 import 'focus-visible/dist/focus-visible'
@@ -10,13 +12,18 @@ import customTheme from './styles/theme'
 import Router from './Router'
 import GlobalStyles from './styles/GlobalStyles'
 
+const queryCache = new QueryCache()
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={customTheme}>
       <ColorModeProvider>
         <CSSReset />
         <Global styles={GlobalStyles} />
-        <Router />
+        <ReactQueryCacheProvider queryCache={queryCache}>
+          <Router />
+          <ReactQueryDevtools />
+        </ReactQueryCacheProvider>
       </ColorModeProvider>
     </ThemeProvider>
   </React.StrictMode>,

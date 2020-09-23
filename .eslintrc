@@ -30,7 +30,9 @@
       "valid-typeof": ["error", { "requireStringLiterals": false }],
       "no-use-before-define": [0],
       "@typescript-eslint/no-use-before-define": [1],
-      "react/prop-types": "off"
+      "@typescript-eslint/no-explicit-any": "off",
+      "react/prop-types": "off",
+      "react/no-unescaped-entities": "off"
   },
   "settings": {
     "react": {

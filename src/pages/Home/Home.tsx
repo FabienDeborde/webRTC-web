@@ -1,5 +1,6 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { RouteComponentProps } from '@reach/router'
+import queryString from 'query-string'
 import {
   Box,
   Button,
@@ -12,8 +13,9 @@ import HomeMain from './HomeMain'
 import { CreateIcon, JoinIcon } from '../../components/CustomIcons'
 import { HEADER_HEIGHT } from '../../constants'
 
-const Home: React.FC<RouteComponentProps> = () => {
+const Home: React.FC<RouteComponentProps> = ({ location }) => {
   const [currentMode, setCurrentMode] = useState<'create' | 'join' | null>(null)
+
   const _setToCreateMode = () => {
     setCurrentMode('create')
   }
@@ -23,6 +25,15 @@ const Home: React.FC<RouteComponentProps> = () => {
   const _resetMode = () => {
     setCurrentMode(null)
   }
+
+  useEffect(() => {
+    if (location) {
+      const parsed = queryString.parse(location.search)
+      if (parsed.mode === 'join') {
+        setCurrentMode('join')
+      }
+    }
+  }, [location])
 
   const _renderBackButton = () => {
     if (!currentMode) return null

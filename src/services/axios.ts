@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios'
+import { CustomError } from '../typings'
 const { REACT_APP_MAIN_API_URL } = process.env
 
 const configureAxios = (instance: AxiosInstance): AxiosInstance => {
@@ -12,13 +13,13 @@ const configureAxios = (instance: AxiosInstance): AxiosInstance => {
   })
 
   instance.interceptors.response.use(function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
+  // Any status code that lie within the range of 2xx cause this function to trigger
+  // Do something with response data
     // console.log('response', response)
     return response
   }, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
+  // Any status codes that falls outside the range of 2xx cause this function to trigger
+  // Do something with response error
     let message: string
     message = 'サーバエラー'
     if (error.response) {
@@ -32,7 +33,10 @@ const configureAxios = (instance: AxiosInstance): AxiosInstance => {
       }
     }
 
-    const err = new Error(message)
+    const err = new Error(message) as CustomError
+    err.error = error.response && error.response.data
+    err.code = error.response && error.response.status
+
     return Promise.reject(err)
   })
 

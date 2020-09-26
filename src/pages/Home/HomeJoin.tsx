@@ -12,9 +12,7 @@ import {
   Input,
   Text
 } from '@chakra-ui/core'
-import {
-  useMutation
-} from 'react-query'
+import { useMutation } from 'react-query'
 import { useNavigate } from '@reach/router'
 
 import { RoomAccessResponse, RoomAccess } from '../../typings'

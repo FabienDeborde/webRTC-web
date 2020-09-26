@@ -75,7 +75,7 @@ const Room: React.FC<IRoom> = ({ roomID, location }) => {
     }
   }, [location, roomID, joinRoom])
 
-  console.log('location', location, isVerified)
+  // console.log('location', location, isVerified)
 
   if (isLoading) {
     return (
@@ -107,7 +107,7 @@ const Room: React.FC<IRoom> = ({ roomID, location }) => {
         <Icon name="info" mr={2}/>
         You are now connected to { roomName }
       </Flex>
-      <InvitationRow />
+      <InvitationRow roomID={roomID}/>
       <VideosContainer />
       <UserVideoContainer />
     </Flex>

@@ -1,8 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { Box, Button, theme } from '@chakra-ui/core'
-import UserVideo from './UserVideo'
+
+import { useUserMedia } from '../../hooks/useUserMedia'
+import { CAPTURE_OPTIONS } from '../../constants'
+
+import Video from '../../components/Video'
 
 const UserVideoContainer: React.FC = () => {
+  const userStream = useUserMedia(CAPTURE_OPTIONS)
   // Manage drag & drop
   const containerRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -71,10 +76,6 @@ const UserVideoContainer: React.FC = () => {
         bottom={posY + 'px'}
         right={posX + 'px'}
         transform={`translate(${translateX}px, ${translateY}px)`}
-        // w={[
-        //   '150px',
-        //   '200px'
-        // ]}
         h={[
           '150px',
           '200px'
@@ -84,7 +85,16 @@ const UserVideoContainer: React.FC = () => {
         boxShadow={isDragging ? 'lg' : 'none'}
         zIndex={theme.zIndices.overlay}
       >
-        <UserVideo />
+        <Box
+          h="100%"
+          w="100%"
+          m={0}
+          p={0}
+          rounded="md"
+          overflow="hidden"
+        >
+          <Video stream={userStream} muted/>
+        </Box>
       </Box>
       <Button
         pos="fixed"

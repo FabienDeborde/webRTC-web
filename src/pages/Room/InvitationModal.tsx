@@ -38,8 +38,11 @@ const InvitationModal: React.FC<IInvitationModal> = ({ isOpen, onClose, roomID }
   const [error, setError] = useState<string>()
   const initialRef = useRef<HTMLInputElement>(null)
 
-  const reset = () => {
+  const _closeModal = () => {
     setEmails([])
+    setEmail('')
+    setError('')
+    onClose()
   }
 
   const [invitePeople, { isLoading }] = useMutation(sendInvitation, {
@@ -130,8 +133,7 @@ const InvitationModal: React.FC<IInvitationModal> = ({ isOpen, onClose, roomID }
       }, {
         onSuccess: (res) => {
           if (res && res.status === 200) {
-            reset()
-            onClose()
+            _closeModal()
           }
         }
       })
@@ -157,7 +159,7 @@ const InvitationModal: React.FC<IInvitationModal> = ({ isOpen, onClose, roomID }
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={_closeModal}
       isCentered
       size="lg"
       initialFocusRef={initialRef}
@@ -206,7 +208,7 @@ const InvitationModal: React.FC<IInvitationModal> = ({ isOpen, onClose, roomID }
         <ModalFooter>
           <Button
             mr={3}
-            onClick={onClose}
+            onClick={_closeModal}
             variantColor="gray"
             variant="outline"
             size="sm"

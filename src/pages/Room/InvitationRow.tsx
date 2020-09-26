@@ -6,9 +6,13 @@ import {
   Flex,
   Icon,
   useColorMode,
-  useClipboard, Text, Box
+  useClipboard,
+  Text,
+  Box,
+  useDisclosure
 } from '@chakra-ui/core'
 import { motion, AnimatePresence } from 'framer-motion'
+import InvitationModal from './InvitationModal'
 
 const CopyAnimation = React.forwardRef((props, ref) => {
   const { colorMode } = useColorMode()
@@ -34,45 +38,53 @@ const CopyAnimation = React.forwardRef((props, ref) => {
 })
 const MotionCopy = motion.custom(CopyAnimation)
 
-const InvitationRow = () => {
+type IInvitationRow = {
+  roomID?: string;
+}
+
+const InvitationRow: React.FC<IInvitationRow> = ({ roomID }) => {
   const location = useLocation()
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const { onCopy, hasCopied } = useClipboard(location && location.href)
 
   return (
-    <Flex mt={4} justify="flex-end" align="center">
-      <Box pos="relative">
+    <>
+      <InvitationModal isOpen={isOpen} onClose={onClose} roomID={roomID}/>
+      <Flex mt={4} justify="flex-end" align="center">
+        <Box pos="relative">
+          <Button
+            size="xs"
+            variant="ghost"
+            variantColor="primary"
+            rightIcon="copy"
+            fontWeight="normal"
+            onClick={onCopy}
+          >
+            Copy invitation link
+          </Button>
+          <AnimatePresence>
+            {hasCopied && (
+              <MotionCopy
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: -48 }}
+                exit={{ opacity: 0, y: -300 }}
+              />
+            )}
+          </AnimatePresence>
+        </Box>
         <Button
           size="xs"
-          variant="ghost"
-          variantColor="primary"
-          rightIcon="copy"
+          variant="outline"
+          variantColor="accent"
+          ml={4}
+          leftIcon="email"
           fontWeight="normal"
-          onClick={onCopy}
+          onClick={onOpen}
         >
-            Copy invitation link
-        </Button>
-        {/* <CopyAnimation/> */}
-        <AnimatePresence>
-          {hasCopied && (
-            <MotionCopy
-              initial={{ opacity: 0, y: 100 }}
-              animate={{ opacity: 1, y: -48 }}
-              exit={{ opacity: 0, y: -300 }}
-            />
-          )}
-        </AnimatePresence>
-      </Box>
-      <Button
-        size="xs"
-        variant="outline"
-        variantColor="accent"
-        ml={4}
-        leftIcon="email"
-        fontWeight="normal"
-      >
           Send invitation email
-      </Button>
-    </Flex>
+        </Button>
+      </Flex>
+    </>
   )
 }
 

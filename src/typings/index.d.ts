@@ -8,6 +8,11 @@ export interface RoomAccess {
   password?: string;
 }
 
+export interface SendInvitation {
+  id: string;
+  emails: string[];
+}
+
 export interface RoomCreateResponse {
   id?: string;
   name?: string;

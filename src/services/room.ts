@@ -3,6 +3,7 @@ import { createApi } from './axios'
 import {
   RoomData,
   RoomAccess,
+  SendInvitation,
   RoomCreateResponse,
   RoomAccessResponse
 } from '../typings'
@@ -13,4 +14,7 @@ export const createRoom = (data: RoomData): Promise<AxiosResponse<RoomCreateResp
 }
 export const accessRoom = (data: RoomAccess): Promise<AxiosResponse<RoomAccessResponse>> => {
   return api.post('/rooms/access', data)
+}
+export const sendInvitation = (data: SendInvitation): Promise<AxiosResponse<any>> => {
+  return api.post('/rooms/invite', data)
 }

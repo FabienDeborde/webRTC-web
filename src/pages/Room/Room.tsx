@@ -75,6 +75,12 @@ const Room: React.FC<IRoom> = ({ roomID, location }) => {
     }
   }, [location, roomID, joinRoom])
 
+  useEffect(() => {
+    if (isVerified) {
+      console.log('verified')
+    }
+  }, [isVerified])
+
   // console.log('location', location, isVerified)
 
   if (isLoading) {

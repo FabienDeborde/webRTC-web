@@ -80,6 +80,7 @@ const UserVideoContainer: React.FC = () => {
           '150px',
           '200px'
         ]}
+        maxW="250px"
         pos="fixed"
         cursor={isDragging ? 'grabbing' : 'grab'}
         boxShadow={isDragging ? 'lg' : 'none'}

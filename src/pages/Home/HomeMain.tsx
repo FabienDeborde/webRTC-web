@@ -1,6 +1,8 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Flex, Box } from '@chakra-ui/core'
+import { useLocation } from '@reach/router'
+import queryString from 'query-string'
 
 import HomeCreate from './HomeCreate'
 import HomeJoin from './HomeJoin'
@@ -10,11 +12,24 @@ interface IHomeMain {
 }
 
 const HomeMain: React.FC<IHomeMain> = ({ currentMode }) => {
-  if (!currentMode) return null
+  const location = useLocation()
+  const [defaultID, setDefaultID] = useState('')
+
+  useEffect(() => {
+    if (location) {
+      const parsed = queryString.parse(location.search)
+      if (parsed.mode === 'join' && parsed.id) {
+        const id = parsed.id as string
+        setDefaultID(id)
+      }
+    }
+  }, [location])
+
+  if (!currentMode || !location) return null
 
   const _renderChildren = () => {
     if (currentMode && currentMode === 'create') return <HomeCreate />
-    if (currentMode && currentMode === 'join') return <HomeJoin />
+    if (currentMode && currentMode === 'join') return <HomeJoin defaultID={defaultID} />
     return null
   }
   return (

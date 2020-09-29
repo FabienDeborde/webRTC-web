@@ -1,5 +1,6 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { RouteComponentProps } from '@reach/router'
+import queryString from 'query-string'
 import {
   Box,
   Button,
@@ -10,9 +11,11 @@ import {
 import HomeButton from './HomeButton'
 import HomeMain from './HomeMain'
 import { CreateIcon, JoinIcon } from '../../components/CustomIcons'
+import { HEADER_HEIGHT } from '../../constants'
 
-const Home: React.FC<RouteComponentProps> = () => {
+const Home: React.FC<RouteComponentProps> = ({ location }) => {
   const [currentMode, setCurrentMode] = useState<'create' | 'join' | null>(null)
+
   const _setToCreateMode = () => {
     setCurrentMode('create')
   }
@@ -22,6 +25,15 @@ const Home: React.FC<RouteComponentProps> = () => {
   const _resetMode = () => {
     setCurrentMode(null)
   }
+
+  useEffect(() => {
+    if (location) {
+      const parsed = queryString.parse(location.search)
+      if (parsed.mode === 'join') {
+        setCurrentMode('join')
+      }
+    }
+  }, [location])
 
   const _renderBackButton = () => {
     if (!currentMode) return null
@@ -42,7 +54,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   }
 
   return (
-    <Flex align='center' justify={currentMode ? 'flex-start' : 'center'} h="calc(100vh - 48px)" direction="column">
+    <Flex align='center' justify={currentMode ? 'flex-start' : 'center'} h={`calc(100vh - ${HEADER_HEIGHT}px)`} direction="column">
       { _renderBackButton() }
       <Flex direction="column">
         <HomeButton

@@ -15,17 +15,18 @@ const Video: React.FC<IVideo> = ({ stream, muted }) => {
     }
   }, [stream])
 
-  console.log('stream', stream)
-
   return (
     <video
       ref={videoRef}
       muted={!!muted}
       style={{
+        minWidth: 0,
+        minHeight: 0,
         width: '100%',
         height: '100%',
-        objectFit: 'cover',
-        objectPosition: 'center'
+        objectFit: 'contain',
+        objectPosition: 'center',
+        overflow: 'hidden'
       }}
     />
   )

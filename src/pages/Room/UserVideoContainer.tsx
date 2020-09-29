@@ -1,13 +1,13 @@
-import React, { useRef, useState } from 'react'
+import React, { memo, useRef, useState } from 'react'
 import { Box, Button, theme } from '@chakra-ui/core'
-
-import { useUserMedia } from '../../hooks/useUserMedia'
-import { CAPTURE_OPTIONS } from '../../constants'
 
 import Video from '../../components/Video'
 
-const UserVideoContainer: React.FC = () => {
-  const userStream = useUserMedia(CAPTURE_OPTIONS)
+interface IUserVideoContainer {
+  userStream: MediaStream;
+}
+
+const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
   // Manage drag & drop
   const containerRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -111,4 +111,4 @@ const UserVideoContainer: React.FC = () => {
   )
 }
 
-export default UserVideoContainer
+export default memo(UserVideoContainer)

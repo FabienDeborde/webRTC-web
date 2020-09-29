@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
+import { SERVER_URL } from '../constants'
 import { CustomError } from '../typings'
-const { REACT_APP_MAIN_API_URL } = process.env
 
 const configureAxios = (instance: AxiosInstance): AxiosInstance => {
   // Set header in interceptor instead of instance definition
@@ -45,7 +45,7 @@ const configureAxios = (instance: AxiosInstance): AxiosInstance => {
 
 export const createApi = (): AxiosInstance => {
   const axiosInstance = axios.create({
-    baseURL: REACT_APP_MAIN_API_URL,
+    baseURL: SERVER_URL,
     timeout: 60 * 1000 // API request timeout set to 60s
   })
 

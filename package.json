@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "lint-full": "eslint '*/**/*.{js,ts,tsx}'",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-app-rewired test"
   },
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
@@ -35,7 +34,7 @@
     "react-hook-form": "^6.8.3",
     "react-icons": "^3.0.0",
     "react-query": "^2.23.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^3.4.3",
     "socket.io-client": "^2.3.0",
     "typescript": "^3.9.5",
     "web-vitals": "^0.2.2"
@@ -51,6 +50,8 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-standard": "^4.0.1",
+    "parcel-bundler": "^1.12.4",
+    "react-app-rewired": "^2.1.6",
     "react-query-devtools": "^2.5.0"
   },
   "eslintConfig": {

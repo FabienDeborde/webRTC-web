@@ -3,9 +3,7 @@ import React, { memo, useEffect, useState } from 'react'
 import { navigate, RouteComponentProps, WindowLocation } from '@reach/router'
 import {
   Flex,
-  Icon,
-  Spinner,
-  useColorMode
+  Spinner
 } from '@chakra-ui/core'
 import { useMutation } from 'react-query'
 
@@ -13,9 +11,7 @@ import { HEADER_HEIGHT } from '../../constants'
 import { RoomAccessResponse, RoomState, RoomAccess, CustomError } from '../../typings'
 import { accessRoom } from '../../services/room'
 
-import InvitationRow from './InvitationRow'
-import VideosContainer from './VideosContainer'
-import UserVideoContainer from './UserVideoContainer'
+import VerifiedRoom from './VerifiedRoom'
 
 type IRoom = {
   roomID?: string;
@@ -23,7 +19,6 @@ type IRoom = {
 } & RouteComponentProps
 
 const Room: React.FC<IRoom> = ({ roomID, location }) => {
-  const { colorMode } = useColorMode()
   const [isVerified, setIsVerified] = useState(false)
   const [roomName, setRoomName] = useState('')
 
@@ -34,7 +29,7 @@ const Room: React.FC<IRoom> = ({ roomID, location }) => {
   const [joinRoom, { isLoading }] = useMutation(accessRoom, {
     onSuccess: (res) => {
       const data = res.data as RoomAccessResponse
-      console.log('data', data)
+      // console.log('data', data)
 
       if (data.access) {
         setIsVerified(true)
@@ -75,14 +70,6 @@ const Room: React.FC<IRoom> = ({ roomID, location }) => {
     }
   }, [location, roomID, joinRoom])
 
-  useEffect(() => {
-    if (isVerified) {
-      console.log('verified')
-    }
-  }, [isVerified])
-
-  // console.log('location', location, isVerified)
-
   if (isLoading) {
     return (
       <Flex h={`calc(100vh - ${HEADER_HEIGHT}px)`} align="center" justify="center">
@@ -97,26 +84,13 @@ const Room: React.FC<IRoom> = ({ roomID, location }) => {
     )
   }
 
-  if (!isVerified) return null
+  if (!isVerified || !roomID || !roomName) return null
 
   return (
-    <Flex h={`calc(100vh - ${HEADER_HEIGHT}px)`} direction="column" overflow="hidden" p={4}>
-      <Flex
-        as="h1"
-        color={colorMode === 'light' ? 'primary.500' : 'primary.200'}
-        fontSize="2xl"
-        align="center"
-        justify="center"
-        fontWeight={500}
-        pt={1}
-      >
-        <Icon name="info" mr={2}/>
-        You are now connected to { roomName }
-      </Flex>
-      <InvitationRow roomID={roomID}/>
-      <VideosContainer />
-      <UserVideoContainer />
-    </Flex>
+    <VerifiedRoom
+      roomName={roomName}
+      roomID={roomID}
+    />
   )
 }
 

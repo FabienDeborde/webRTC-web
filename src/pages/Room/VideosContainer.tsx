@@ -1,47 +1,72 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import {
   Grid,
   Box
 } from '@chakra-ui/core'
+import { IUserStreams } from './VerifiedRoom'
 
-import { useUserMedia } from '../../hooks/useUserMedia'
-import { CAPTURE_OPTIONS } from '../../constants'
+// import { useUserMedia } from '../../hooks/useUserMedia'
+// import { CAPTURE_OPTIONS } from '../../constants'
 
 import Video from '../../components/Video'
 
-const VideosContainer = () => {
-  const userStream = useUserMedia(CAPTURE_OPTIONS)
+// const videosCount = 1
+
+interface IVideosContainer {
+  userStreams?: IUserStreams;
+}
+
+const VideosContainer: React.FC<IVideosContainer> = ({ userStreams }) => {
+  const containerRef = useRef<HTMLElement>(null)
+  const [containerHeight, setContainerHeight] = useState(0)
+  // const userStream = useUserMedia(CAPTURE_OPTIONS)
+
+  useEffect(() => {
+    if (containerRef && containerRef.current) {
+      const container = containerRef && containerRef.current
+      const rect = container.getBoundingClientRect()
+      setContainerHeight(rect && rect.height)
+    }
+  }, [containerRef])
 
   const _renderVideos = () => {
-    const videos = []
-    for (let index = 0; index < 2; index++) {
-      videos.push(
-        <Box h={['150px', '250px']} key={index}>
-          <Video stream={userStream} muted/>
+    console.log('userStreams', userStreams)
+    if (!userStreams || Object.values(userStreams).length === 0) return null
+    return Object.values(userStreams).map((stream, index) => {
+      return (
+        <Box h="100%" w="100%" key={index}>
+          <Video stream={stream} muted/>
         </Box>
       )
-    }
-    return videos
+    })
   }
+
+  if (!userStreams) return null
+
   // TODO:  Create dynamic layout using JS? Get W, H of container & number of videos?
   return (
     <Box
       overflow="hidden"
       flex={1}
-      borderWidth="1px"
-      rounded="md"
       mt={4}
       id="videosContainer"
+      ref={containerRef}
     >
       <Grid
         id="videosGrid"
-        gap={0}
+        gap={2}
         templateColumns={[
-          'repeat( auto-fill, minmax(150px, 1fr) )',
-          'repeat( auto-fill, minmax(250px, 1fr) )'
+          'repeat( auto-fit, minmax(150px, 1fr) )',
+          'repeat( auto-fit, minmax(250px, 1fr) )',
+          'repeat( auto-fit, minmax(300px, 1fr) )'
         ]}
-        autoRows="max-content"
-        h="100%"
+        templateRows={[
+          'repeat( auto-fit, minmax(150px, 1fr) )',
+          'repeat( auto-fit, minmax(250px, 1fr) )',
+          'repeat( auto-fit, minmax(300px, 1fr) )'
+        ]}
+        h={containerHeight}
+        // h="100%"
         overflowY="auto"
       >
         {_renderVideos()}

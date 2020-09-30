@@ -82,7 +82,7 @@ const VerifiedRoom: React.SFC<IVerifiedRoom> = ({ roomName, roomID }) => {
     (peer: Peer, userId: string, stream: MediaStream) => {
       if (peer) {
         const call = peer.call(userId, stream)
-        console.log('calling', userId)
+        console.log('calling user')
 
         updateStreams(call, userId)
 
@@ -97,8 +97,7 @@ const VerifiedRoom: React.SFC<IVerifiedRoom> = ({ roomName, roomID }) => {
 
   const removePeer = useCallback(
     (userId: string) => {
-      console.log('removing peer', userId)
-      console.log('peers', peers)
+      console.log('removing peer')
       if (peers && peers[userId]) peers[userId].close()
       deleteStreams(userId)
     },
@@ -123,10 +122,9 @@ const VerifiedRoom: React.SFC<IVerifiedRoom> = ({ roomName, roomID }) => {
 
   useEffect(() => {
     if (userStream && roomID) {
-      console.log('user stream', userStream)
-      console.log('env', process.env)
-
+      // console.log('user stream', userStream)
       const peer = new Peer(undefined, peerOptions)
+      console.log('peer', peer)
 
       const socket = SocketIOClient(SERVER_URL, {
         // transports: ['websocket'],
@@ -138,13 +136,13 @@ const VerifiedRoom: React.SFC<IVerifiedRoom> = ({ roomName, roomID }) => {
       })
 
       peer.on('call', call => {
-        console.log('receiving a call...', call)
+        console.log('receiving a call...')
         call.answer(userStream)
         updateStreams(call, call.peer)
       })
 
       socket.on('user-connected', (newUserId: string) => {
-        console.log('new user connected', newUserId)
+        console.log('new user connected')
         connectToNewUser(peer, newUserId, userStream)
       })
 

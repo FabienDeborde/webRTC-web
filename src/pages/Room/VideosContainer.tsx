@@ -30,12 +30,11 @@ const VideosContainer: React.FC<IVideosContainer> = ({ userStreams }) => {
   }, [containerRef])
 
   const _renderVideos = () => {
-    console.log('userStreams', userStreams)
     if (!userStreams || Object.values(userStreams).length === 0) return null
     return Object.values(userStreams).map((stream, index) => {
       return (
         <Box h="100%" w="100%" key={index}>
-          <Video stream={stream} muted/>
+          <Video stream={stream} />
         </Box>
       )
     })

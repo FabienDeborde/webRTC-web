@@ -13,6 +13,8 @@ import {
 } from '@chakra-ui/core'
 import { motion, AnimatePresence } from 'framer-motion'
 import InvitationModal from './InvitationModal'
+import { MOBILE_WIDTH } from '../../constants'
+import { useWindowSize } from '../../hooks/useWindowSize'
 
 const CopyAnimation = React.forwardRef((props, ref) => {
   const { colorMode } = useColorMode()
@@ -46,11 +48,12 @@ const InvitationRow: React.FC<IInvitationRow> = ({ roomID }) => {
   const location = useLocation()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { onCopy, hasCopied } = useClipboard(location && location.href)
+  const { width } = useWindowSize()
 
   return (
     <>
       <InvitationModal isOpen={isOpen} onClose={onClose} roomID={roomID}/>
-      <Flex mt={4} justify="flex-end" align="center">
+      <Flex mt={4} justify={ width && width > MOBILE_WIDTH ? 'flex-end' : 'flex-start' } align={ width && width > MOBILE_WIDTH ? 'center' : 'flex-start' } direction={width && width > MOBILE_WIDTH ? 'row' : 'column'}>
         <Box pos="relative">
           <Button
             size="xs"
@@ -60,7 +63,7 @@ const InvitationRow: React.FC<IInvitationRow> = ({ roomID }) => {
             fontWeight="normal"
             onClick={onCopy}
           >
-            Copy invitation link
+            { width && width > MOBILE_WIDTH ? 'Copy invitation link' : 'Link' }
           </Button>
           <AnimatePresence>
             {hasCopied && (
@@ -76,12 +79,13 @@ const InvitationRow: React.FC<IInvitationRow> = ({ roomID }) => {
           size="xs"
           variant="outline"
           variantColor="accent"
-          ml={4}
+          ml={width && width > MOBILE_WIDTH ? 4 : 0}
+          mt={width && width > MOBILE_WIDTH ? 0 : 2}
           leftIcon="email"
           fontWeight="normal"
           onClick={onOpen}
         >
-          Send invitation email
+          { width && width > MOBILE_WIDTH ? 'Send invitation email' : 'Send invitation' }
         </Button>
       </Flex>
     </>

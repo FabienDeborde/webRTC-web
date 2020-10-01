@@ -1,7 +1,6 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import { QueryCache, ReactQueryCacheProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query-devtools'
 import { ThemeProvider, ColorModeProvider, CSSReset } from '@chakra-ui/core'
 import { Global } from '@emotion/core'
 import 'focus-visible/dist/focus-visible'
@@ -22,7 +21,6 @@ ReactDOM.render(
         <Global styles={GlobalStyles} />
         <ReactQueryCacheProvider queryCache={queryCache}>
           <Router />
-          <ReactQueryDevtools />
         </ReactQueryCacheProvider>
       </ColorModeProvider>
     </ThemeProvider>

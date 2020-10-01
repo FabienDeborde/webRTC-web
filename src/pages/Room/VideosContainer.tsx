@@ -69,7 +69,6 @@ const VideosContainer: React.FC<IVideosContainer> = ({ userStreams }) => {
         overflowY="auto"
       >
         {_renderVideos()}
-
       </Grid>
     </Box>
   )

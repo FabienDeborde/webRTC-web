@@ -1,5 +1,5 @@
 import React, { memo, useRef, useState } from 'react'
-import { Box, Button, theme } from '@chakra-ui/core'
+import { Box, Button, Flex, Icon, theme } from '@chakra-ui/core'
 
 import Video from '../../components/Video'
 
@@ -17,6 +17,7 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
   const [originalY, setOriginalY] = useState(0)
   const [translateX, setTranslateX] = useState(0)
   const [translateY, setTranslateY] = useState(0)
+  const [smallVideo, setSmallVideo] = useState(localStorage.getItem('user_video_size') === 'true')
 
   const handleMouseMove = (event: React.MouseEvent) => {
     const { clientX, clientY } = event
@@ -66,6 +67,11 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
     localStorage.setItem('userVideoY', String(8))
   }
 
+  const _handleVideoSize = () => {
+    localStorage.setItem('user_video_size', String(!smallVideo))
+    setSmallVideo(!smallVideo)
+  }
+
   return (
     <>
       <Box
@@ -75,7 +81,8 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
         onMouseUp={handleMouseUp}
         bottom={posY + 'px'}
         right={posX + 'px'}
-        transform={`translate(${translateX}px, ${translateY}px)`}
+        transform={`translate(${translateX}px, ${translateY}px) scale(${smallVideo ? 0.5 : 1})`}
+        transformOrigin="bottom right"
         h={[
           '150px',
           '200px'
@@ -86,6 +93,20 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
         boxShadow={isDragging ? 'lg' : 'none'}
         zIndex={theme.zIndices.overlay}
       >
+        <Flex
+          pos="absolute"
+          zIndex={theme.zIndices.popover}
+          h={smallVideo ? 10 : 5}
+          w={smallVideo ? 10 : 5}
+          bg="black"
+          onClick={_handleVideoSize}
+          cursor="pointer"
+          justify="center"
+          align="center"
+          opacity={0.5}
+        >
+          <Icon name="arrow-up" size={smallVideo ? '2em' : '1em'} transform={`rotate(${smallVideo ? '-45deg' : '135deg'})`}/>
+        </Flex>
         <Box
           h="100%"
           w="100%"

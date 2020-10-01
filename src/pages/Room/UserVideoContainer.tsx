@@ -20,7 +20,19 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
   const [smallVideo, setSmallVideo] = useState(localStorage.getItem('user_video_size') === 'true')
 
   const handleMouseMove = (event: React.MouseEvent | React.TouchEvent) => {
-    const { clientX, clientY } = event
+    event.persist()
+    let clientX = 0
+    let clientY = 0
+
+    if (event.nativeEvent instanceof TouchEvent) {
+      clientX = event.nativeEvent.touches[0].clientX
+      clientY = event.nativeEvent.touches[0].clientY
+    }
+
+    if (event.nativeEvent instanceof MouseEvent) {
+      clientX = event.nativeEvent.clientX
+      clientY = event.nativeEvent.clientY
+    }
 
     if (isDragging) {
       setTranslateX(clientX - originalX)
@@ -45,7 +57,19 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
   }
 
   const handleMouseDown = (event: React.MouseEvent | React.TouchEvent) => {
-    const { clientX, clientY } = event
+    event.persist()
+    let clientX = 0
+    let clientY = 0
+
+    if (event.nativeEvent instanceof TouchEvent) {
+      clientX = event.nativeEvent.touches[0].clientX
+      clientY = event.nativeEvent.touches[0].clientY
+    }
+
+    if (event.nativeEvent instanceof MouseEvent) {
+      clientX = event.nativeEvent.clientX
+      clientY = event.nativeEvent.clientY
+    }
 
     setOriginalX(clientX)
     setOriginalY(clientY)

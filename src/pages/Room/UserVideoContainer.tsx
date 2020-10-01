@@ -2,6 +2,8 @@ import React, { memo, useRef, useState } from 'react'
 import { Box, Button, Flex, Icon, theme } from '@chakra-ui/core'
 
 import Video from '../../components/Video'
+import { useWindowSize } from '../../hooks/useWindowSize'
+import { MOBILE_WIDTH } from '../../constants'
 
 interface IUserVideoContainer {
   userStream: MediaStream;
@@ -18,6 +20,7 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
   const [translateX, setTranslateX] = useState(0)
   const [translateY, setTranslateY] = useState(0)
   const [smallVideo, setSmallVideo] = useState(localStorage.getItem('user_video_size') === 'true')
+  const { width } = useWindowSize()
 
   const handleMouseMove = (event: React.MouseEvent | React.TouchEvent) => {
     event.persist()
@@ -154,7 +157,7 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
         bottom={3}
         right={3}
         zIndex={theme.zIndices.docked}
-      >Reset the video</Button>
+      >{ width && width > MOBILE_WIDTH ? 'Reset the video' : 'Reset' }</Button>
     </>
   )
 }

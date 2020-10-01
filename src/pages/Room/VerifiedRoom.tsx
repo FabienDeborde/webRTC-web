@@ -11,10 +11,12 @@ import { getUserMedia } from '../../services/stream'
 import {
   CAPTURE_OPTIONS,
   HEADER_HEIGHT,
+  MOBILE_WIDTH,
   SERVER_URL,
   PEER_URL,
   PEER_PORT
 } from '../../constants'
+import { useWindowSize } from '../../hooks/useWindowSize'
 
 import InvitationRow from './InvitationRow'
 import VideosContainer from './VideosContainer'
@@ -49,6 +51,7 @@ const VerifiedRoom: React.SFC<IVerifiedRoom> = ({ roomName, roomID }) => {
   const { colorMode } = useColorMode()
   const [userStream, setUserStream] = useState<MediaStream|null>()
   const [userStreams, setUserStreams] = useState<IUserStreams>({})
+  const { width } = useWindowSize()
 
   const getUserStream = useCallback(
     async () => {
@@ -164,18 +167,25 @@ const VerifiedRoom: React.SFC<IVerifiedRoom> = ({ roomName, roomID }) => {
       <Flex
         as="h1"
         color={colorMode === 'light' ? 'primary.500' : 'primary.200'}
-        fontSize="2xl"
+        fontSize={[
+          'l',
+          '2xl'
+        ]}
         align="center"
         justify="center"
         fontWeight={500}
-        pt={1}
+        pt={[
+          0,
+          1
+        ]}
       >
         <Icon name="info" mr={2}/>
         You are now connected to { roomName }
       </Flex>
-      <InvitationRow roomID={roomID}/>
+      { width && width > MOBILE_WIDTH ? <InvitationRow roomID={roomID}/> : null }
       <VideosContainer userStreams={userStreams} />
       <UserVideoContainer userStream={userStream}/>
+      { width && width <= MOBILE_WIDTH ? <InvitationRow roomID={roomID}/> : null }
     </Flex>
   )
 }

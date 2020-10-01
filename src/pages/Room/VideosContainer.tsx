@@ -1,16 +1,12 @@
 import React, { memo, useEffect, useRef, useState } from 'react'
 import {
   Grid,
-  Box
+  Box,
+  theme
 } from '@chakra-ui/core'
 import { IUserStreams } from './VerifiedRoom'
 
-// import { useUserMedia } from '../../hooks/useUserMedia'
-// import { CAPTURE_OPTIONS } from '../../constants'
-
 import Video from '../../components/Video'
-
-// const videosCount = 1
 
 interface IVideosContainer {
   userStreams?: IUserStreams;
@@ -19,7 +15,7 @@ interface IVideosContainer {
 const VideosContainer: React.FC<IVideosContainer> = ({ userStreams }) => {
   const containerRef = useRef<HTMLElement>(null)
   const [containerHeight, setContainerHeight] = useState(0)
-  // const userStream = useUserMedia(CAPTURE_OPTIONS)
+  const [fullscreen, setFullscreen] = useState(false)
 
   useEffect(() => {
     if (containerRef && containerRef.current) {
@@ -47,9 +43,16 @@ const VideosContainer: React.FC<IVideosContainer> = ({ userStreams }) => {
     <Box
       overflow="hidden"
       flex={1}
-      mt={4}
+      mt={fullscreen ? 0 : 4}
       id="videosContainer"
       ref={containerRef}
+      onDoubleClick={() => setFullscreen(!fullscreen)}
+      pos={fullscreen ? 'fixed' : 'relative'}
+      top={fullscreen ? 0 : 'auto'}
+      bottom={fullscreen ? 0 : 'auto'}
+      left={fullscreen ? 0 : 'auto'}
+      right={fullscreen ? 0 : 'auto'}
+      zIndex={theme.zIndices.banner}
     >
       <Grid
         id="videosGrid"
@@ -64,8 +67,7 @@ const VideosContainer: React.FC<IVideosContainer> = ({ userStreams }) => {
           'repeat( auto-fit, minmax(250px, 1fr) )',
           'repeat( auto-fit, minmax(300px, 1fr) )'
         ]}
-        h={containerHeight}
-        // h="100%"
+        h={fullscreen ? '100vh' : containerHeight}
         overflowY="auto"
       >
         {_renderVideos()}

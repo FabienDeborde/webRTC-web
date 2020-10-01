@@ -1,5 +1,5 @@
 import React, { memo, useRef, useState } from 'react'
-import { Box, Button, Flex, Icon, theme } from '@chakra-ui/core'
+import { Box, Button, Flex, Icon, theme, useColorMode } from '@chakra-ui/core'
 
 import Video from '../../components/Video'
 import { useWindowSize } from '../../hooks/useWindowSize'
@@ -21,6 +21,7 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
   const [translateY, setTranslateY] = useState(0)
   const [smallVideo, setSmallVideo] = useState(localStorage.getItem('user_video_size') === 'true')
   const { width } = useWindowSize()
+  const { colorMode } = useColorMode()
 
   const handleMouseMove = (event: React.MouseEvent | React.TouchEvent) => {
     event.persist()
@@ -133,9 +134,14 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
           cursor="pointer"
           justify="center"
           align="center"
-          opacity={0.5}
+          opacity={colorMode === 'light' ? 0.75 : 0.5}
         >
-          <Icon name="arrow-up" size={smallVideo ? '2em' : '1em'} transform={`rotate(${smallVideo ? '-45deg' : '135deg'})`}/>
+          <Icon
+            name="arrow-up"
+            size={smallVideo ? '2em' : '1em'}
+            transform={`rotate(${smallVideo ? '-45deg' : '135deg'})`}
+            color={colorMode === 'light' ? 'white' : 'gray'}
+          />
         </Flex>
         <Box
           h="100%"

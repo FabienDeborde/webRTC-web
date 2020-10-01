@@ -2,7 +2,7 @@ jobs:
   lint:
     executor:
       name: node/default
-      tag: '12'
+      tag: '12.16'
     steps:
       - checkout
       - node/install-packages:
@@ -17,5 +17,4 @@ version: 2.1
 workflows:
   app-tests:
     jobs:
-      - lint:
-          version: 12.16.0
+      - lint

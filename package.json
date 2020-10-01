@@ -5,8 +5,8 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
-    "lint-full": "eslint '*/**/*.{js,ts,tsx}'",
+    "lint": "eslint '*/**/*.{js,ts,tsx}'",
+    "lint-fix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "test": "react-app-rewired test"
   },
   "dependencies": {

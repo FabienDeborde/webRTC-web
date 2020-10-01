@@ -7,7 +7,7 @@ import {
 
 type ColorModeSwitcherProps = Omit<IconButtonProps, 'aria-label'>
 
-export const ColorModeSwitcher = (props: ColorModeSwitcherProps) => {
+export const ColorModeSwitcher = (props: ColorModeSwitcherProps): React.ReactElement => {
   const { colorMode, toggleColorMode } = useColorMode()
 
   return (

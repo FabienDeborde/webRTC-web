@@ -124,7 +124,7 @@ const VerifiedRoom: React.SFC<IVerifiedRoom> = ({ roomName, roomID }) => {
     if (userStream && roomID) {
       // console.log('user stream', userStream)
       const peer = new Peer(undefined, peerOptions)
-      console.log('peer', peer)
+      // console.log('peer', peer)
 
       const socket = SocketIOClient(SERVER_URL, {
         // transports: ['websocket'],

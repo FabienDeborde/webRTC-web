@@ -9,7 +9,6 @@ const Video: React.FC<IVideo> = ({ stream, muted }) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   useEffect(() => {
     const video = videoRef && videoRef.current
-    console.log('stream', stream, muted)
     if (video && stream) {
       video.srcObject = stream
       video.play()

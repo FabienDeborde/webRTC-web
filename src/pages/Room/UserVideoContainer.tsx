@@ -1,5 +1,8 @@
 import React, { memo, useRef, useState } from 'react'
 import { Box, Button, Flex, Icon, theme, useColorMode } from '@chakra-ui/core'
+import {
+  isMobile
+} from 'react-device-detect'
 
 import Video from '../../components/Video'
 import { useWindowSize } from '../../hooks/useWindowSize'
@@ -7,9 +10,10 @@ import { MOBILE_WIDTH } from '../../constants'
 
 interface IUserVideoContainer {
   userStream: MediaStream;
+  setUserVideoOptions: React.Dispatch<any>;
 }
 
-const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
+const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream, setUserVideoOptions }) => {
   // Manage drag & drop
   const containerRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -22,6 +26,7 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
   const [smallVideo, setSmallVideo] = useState(localStorage.getItem('user_video_size') === 'true')
   const { width } = useWindowSize()
   const { colorMode } = useColorMode()
+  const [facingMode, setFacingMode] = useState('user')
 
   const handleMouseMove = (event: React.MouseEvent | React.TouchEvent) => {
     event.persist()
@@ -100,6 +105,12 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
     setSmallVideo(!smallVideo)
   }
 
+  const _handleFacingMode = () => {
+    const mode = facingMode === 'user' ? 'environment' : 'user'
+    setFacingMode(mode)
+    setUserVideoOptions(mode)
+  }
+
   return (
     <>
       <Box
@@ -143,6 +154,32 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream }) => {
             color={colorMode === 'light' ? 'white' : 'gray'}
           />
         </Flex>
+        {
+          isMobile
+            ? (
+              <Flex
+                pos="absolute"
+                bottom={0}
+                left={0}
+                zIndex={theme.zIndices.popover}
+                h={smallVideo ? 10 : 5}
+                w={smallVideo ? 10 : 5}
+                bg="black"
+                onClick={_handleFacingMode}
+                cursor="pointer"
+                justify="center"
+                align="center"
+                opacity={colorMode === 'light' ? 0.75 : 0.5}
+              >
+                <Icon
+                  name="flip"
+                  size={smallVideo ? '2em' : '1em'}
+                  color={colorMode === 'light' ? 'white' : 'gray'}
+                />
+              </Flex>
+            )
+            : null
+        }
         <Box
           h="100%"
           w="100%"

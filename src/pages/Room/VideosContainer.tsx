@@ -2,7 +2,7 @@ import React, { memo, useEffect, useRef, useState } from 'react'
 import {
   Grid,
   Box,
-  theme
+  theme, useColorMode
 } from '@chakra-ui/core'
 import { IUserStreams } from './VerifiedRoom'
 
@@ -16,6 +16,7 @@ const VideosContainer: React.FC<IVideosContainer> = ({ userStreams }) => {
   const containerRef = useRef<HTMLElement>(null)
   const [containerHeight, setContainerHeight] = useState(0)
   const [fullscreen, setFullscreen] = useState(false)
+  const { colorMode } = useColorMode()
 
   useEffect(() => {
     if (containerRef && containerRef.current) {
@@ -53,6 +54,9 @@ const VideosContainer: React.FC<IVideosContainer> = ({ userStreams }) => {
       left={fullscreen ? 0 : 'auto'}
       right={fullscreen ? 0 : 'auto'}
       zIndex={theme.zIndices.banner}
+      bg={fullscreen
+        ? colorMode === 'light' ? '#fff' : '#1A202C'
+        : 'transparent'}
     >
       <Grid
         id="videosGrid"

@@ -51,15 +51,19 @@ const VerifiedRoom: React.SFC<IVerifiedRoom> = ({ roomName, roomID }) => {
   const { colorMode } = useColorMode()
   const [userStream, setUserStream] = useState<MediaStream|null>()
   const [userStreams, setUserStreams] = useState<IUserStreams>({})
+  const [userVideoOptions, setUserVideoOptions] = useState<any>({})
   const { width } = useWindowSize()
 
   const getUserStream = useCallback(
     async () => {
-      const stream = await getUserMedia(CAPTURE_OPTIONS)
+      const stream = await getUserMedia({
+        ...CAPTURE_OPTIONS,
+        ...userVideoOptions
+      })
       setUserStream(stream)
       return stream
     },
-    []
+    [userVideoOptions]
   )
 
   const updateStreams = (call: Peer.MediaConnection, userId: string) => {
@@ -184,7 +188,7 @@ const VerifiedRoom: React.SFC<IVerifiedRoom> = ({ roomName, roomID }) => {
       </Flex>
       { width && width > MOBILE_WIDTH ? <InvitationRow roomID={roomID}/> : null }
       <VideosContainer userStreams={userStreams} />
-      <UserVideoContainer userStream={userStream}/>
+      <UserVideoContainer userStream={userStream} setUserVideoOptions={setUserVideoOptions}/>
       { width && width <= MOBILE_WIDTH ? <InvitationRow roomID={roomID}/> : null }
     </Flex>
   )

@@ -154,7 +154,7 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream, facingM
           />
         </Flex>
         {
-          !isMobile
+          isMobile
             ? (
               <Flex
                 pos="absolute"

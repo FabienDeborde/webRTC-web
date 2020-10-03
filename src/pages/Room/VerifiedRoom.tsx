@@ -56,14 +56,6 @@ const VerifiedRoom: React.SFC<IVerifiedRoom> = ({ roomName, roomID }) => {
 
   const getUserStream = useCallback(
     async () => {
-      console.log('options', {
-        ...CAPTURE_OPTIONS,
-        video: {
-          ...CAPTURE_OPTIONS.video,
-          facingMode
-        }
-      })
-
       const stream = await getUserMedia({
         ...CAPTURE_OPTIONS,
         video: {

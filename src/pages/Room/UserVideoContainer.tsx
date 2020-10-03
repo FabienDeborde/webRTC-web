@@ -10,10 +10,11 @@ import { MOBILE_WIDTH } from '../../constants'
 
 interface IUserVideoContainer {
   userStream: MediaStream;
-  setUserVideoOptions: React.Dispatch<any>;
+  facingMode: string;
+  setFacingMode: React.Dispatch<any>;
 }
 
-const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream, setUserVideoOptions }) => {
+const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream, facingMode, setFacingMode }) => {
   // Manage drag & drop
   const containerRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -26,7 +27,6 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream, setUser
   const [smallVideo, setSmallVideo] = useState(localStorage.getItem('user_video_size') === 'true')
   const { width } = useWindowSize()
   const { colorMode } = useColorMode()
-  const [facingMode, setFacingMode] = useState('user')
 
   const handleMouseMove = (event: React.MouseEvent | React.TouchEvent) => {
     event.persist()
@@ -108,7 +108,6 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream, setUser
   const _handleFacingMode = () => {
     const mode = facingMode === 'user' ? 'environment' : 'user'
     setFacingMode(mode)
-    setUserVideoOptions(mode)
   }
 
   return (
@@ -155,7 +154,7 @@ const UserVideoContainer: React.FC<IUserVideoContainer> = ({ userStream, setUser
           />
         </Flex>
         {
-          isMobile
+          !isMobile
             ? (
               <Flex
                 pos="absolute"
